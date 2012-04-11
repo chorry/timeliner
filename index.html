@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+	<title>timeliner test</title>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="tinyscrollbar.js"></script>
+	<script type="text/javascript" src="myscroll.js"></script>
+	<link href="main.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#scrollbar2').tinyscrollbar({ axis:'x', scroll:true});
+		});
+
+		function initTimeline() {
+			var timelineData = '{"params":{"start":"2012-01-01","end":"2012-05-05"},"items":[{"time":"2012-01-01","content":"1 Jan"},{"time":"2012-01-02","content":"2 Jan"},{"time":"2012-01-03","content":"3 Jan"},{"time":"2012-01-04","content":"4 Jan"},{"time":"2012-05-05","content":"5 May"}]}';
+			tl = new Timeline({
+				'rangeStart': '01012012',
+				'rangeEnd': '05012012'
+			});
+			//tl.buildTimeline('#overview', $.parseJSON(timelineData) );
+		}
+
+	</script>
+
+</head>
+
+<body onload="initTimeline();">
+<input type="button" value="click me">
+<div id="scrollbar2">
+	<div class="scrollbar" style="width: 236px; ">
+		<div class="track" style="width: 236px; ">
+			<div class="thumb" style="width: 39.33333333333333px; left: 24px; ">
+				<div class="end"></div>
+			</div>
+		</div>
+	</div>
+	<div class="viewport">
+		<div class="overview" id="overview">
+			<div class="grid">
+				<div class="timeline red">
+					&nbsp;
+					<div class="time_item" style="top:0px; left: 10px;">item1</div>
+				</div>
+				<div class="timeline green">&nbsp;
+					<div class="time_item" style="left: 10px;">item_2</div>
+				</div>
+			</div>
+			<div id="view_marks">
+				<div class="timeline">
+					&nbsp;
+					<div class="time_item" style="left: 10px;"></div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
