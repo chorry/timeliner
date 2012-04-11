@@ -2,23 +2,31 @@
 <html>
 <head>
 	<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-	<title>timeliner test</title>
+	<title>timeline test</title>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script type="text/javascript" src="tinyscrollbar.js"></script>
 	<script type="text/javascript" src="myscroll.js"></script>
-	<link href="main.css" rel="stylesheet" type="text/css" />
+	<link href="main.css" rel="stylesheet" type="text/css"/>
 	<script type="text/javascript">
 		$(document).ready(function () {
 			$('#scrollbar2').tinyscrollbar({ axis:'x', scroll:true});
 		});
 
 		function initTimeline() {
-			var timelineData = '{"params":{"start":"2012-01-01","end":"2012-05-05"},"items":[{"time":"2012-01-01","content":"1 Jan"},{"time":"2012-01-02","content":"2 Jan"},{"time":"2012-01-03","content":"3 Jan"},{"time":"2012-01-04","content":"4 Jan"},{"time":"2012-05-05","content":"5 May"}]}';
-			tl = new Timeline({
-				'rangeStart': '01012012',
-				'rangeEnd': '05012012'
+
+			$.getJSON("data.js", function (json) {
+				console.debug(json);
+				tl = new Timeline({
+					'rangeStart':json.params.start,
+					'rangeEnd':json.params.end
+				});
+
+				$('#timeline1').append(createTimeRange(50, 300, {}));
+				;
+
+				tl.putObjects(json, 'timeline2');
 			});
-			//tl.buildTimeline('#overview', $.parseJSON(timelineData) );
+
 		}
 
 	</script>
@@ -27,6 +35,7 @@
 
 <body onload="initTimeline();">
 <input type="button" value="click me">
+
 <div id="scrollbar2">
 	<div class="scrollbar" style="width: 236px; ">
 		<div class="track" style="width: 236px; ">
@@ -35,21 +44,34 @@
 			</div>
 		</div>
 	</div>
+
 	<div class="viewport">
 		<div class="overview" id="overview">
-			<div class="grid">
-				<div class="timeline red">
+			<div id="timeline_grid" class="grid">
+				<div id="timeline1" class="timeline red">
 					&nbsp;
-					<div class="time_item" style="top:0px; left: 10px;">item1</div>
 				</div>
-				<div class="timeline green">&nbsp;
-					<div class="time_item" style="left: 10px;">item_2</div>
+				<div id="timeline2" class="timeline green">
+					&nbsp;
+				</div>
+				<div id="timeline3" class="timeline red" style="height: 50px;">
+					<div class="time_range_new" style="left: 20px; width: 100px;">
+					</div>
+					<div class="time_range_helper"></div>
+
 				</div>
 			</div>
 			<div id="view_marks">
-				<div class="timeline">
+				<div id="time_ruler" class="timeline">
 					&nbsp;
 					<div class="time_item" style="left: 10px;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="viewport" style="border: 1px solid blue; ">
+		<div class="timeline red" style="position: relative; background: #adff2f; height: 50px; ">
 			</div>
 		</div>
 	</div>
