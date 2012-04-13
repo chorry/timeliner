@@ -8,13 +8,15 @@
 #scrollbar2 .thumb .end{ background:  no-repeat 0 50%; overflow: hidden; height: 25px; width: 5px;}
 #scrollbar2 .disable { display: none; }
 
-.green {color: green; }
-.red {color: red;}
+.green {background-color: green; }
+.red {background-color: red;}
+.magenta {background-color: #ff00ff;}
 
 .timeline { width: 100%; border:1px solid black; display: block; line-height: 16pt; position: relative;}
 .time_item  { position: absolute;}
 .time_range { position: absolute; background: red; height: 6px; display: inline-block;}
-.time_range_new { position: relative; background: #deb887;height: 6px; display: inline-block;}
+.time_range_container { float: left; display: inline-block; height: 100%; }
+.time_range_new { position: relative; background: #deb887;height: 2px; display: inline-block;}
 
 
 #view_marks {width: 100%; border:1px solid black; display: block; line-height: 16pt; position: relative;}

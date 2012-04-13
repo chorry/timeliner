@@ -21,8 +21,7 @@
 					'rangeEnd':json.params.end
 				});
 
-				$('#timeline1').append(createTimeRange(50, 300, {}));
-				;
+				//$('#timeline2').append(createTimeRange(50, 300, {}));
 
 				tl.putObjects(json, 'timeline2');
 			});
@@ -51,14 +50,14 @@
 				<div id="timeline1" class="timeline red">
 					&nbsp;
 				</div>
-				<div id="timeline2" class="timeline green">
+				<div id="timeline2" class="timeline green"  style="height: 30px;">
 					&nbsp;
 				</div>
-				<div id="timeline3" class="timeline red" style="height: 50px;">
-					<div class="time_range_new" style="left: 20px; width: 100px;">
+				<div id="timeline3" class="timeline" style="height: 30px;">
+					<div class="time_range_container">
+						<div class="time_range_new" style="left: -70px; top: 0px; width: 150px;"></div>
+						<div class="time_range_helper"></div>
 					</div>
-					<div class="time_range_helper"></div>
-
 				</div>
 			</div>
 			<div id="view_marks">
@@ -70,11 +69,6 @@
 		</div>
 	</div>
 
-	<div class="viewport" style="border: 1px solid blue; ">
-		<div class="timeline red" style="position: relative; background: #adff2f; height: 50px; ">
-			</div>
-		</div>
-	</div>
 </div>
 </body>
 </html>

@@ -54,21 +54,30 @@ Timeline.prototype.findLocation = function(objectTime) {
     var uxtime = convertToUnixTime(objectTime);
     var secondsInDay = 60*60*24
     var offset = (uxtime - convertToUnixTime(this.rangeStart) ) / secondsInDay * this.pixPerRange;
-    console.log('findLocation:' + objectTime + ":" + offset);
     return offset;
 }
 
 Timeline.prototype.putObjects = function(objects, timeline) {
     var th = this;
     $.each(objects.items, function(k,v){
-        th.putTimeObject(v, timeline);
+        console.debug(v);
+        if (v.type =="event") th.putTimeObject(v, timeline);
+        if (v.type =="range") th.putTimeRangeObject(v, timeline);
+
     });
     return this;
 }
+
 Timeline.prototype.putTimeObject = function(object, dest) {
-    console.debug(object);
     var offset = this.findLocation(object.time);
         $('#' + dest).append(createTimeItem(offset, object.content));
+    return;
+}
+
+Timeline.prototype.putTimeRangeObject = function(object, dest) {
+    var offset = this.findLocation(object.start);
+    var width = (convertToUnixTime(object.end) - convertToUnixTime(object.start) )/ (60*60*24) * this.pixPerRange;
+        $('#' + dest).append(createTimeRange(offset, width, object.content));
     return;
 }
 
@@ -88,16 +97,24 @@ function convertToUnixTime(dateIn) {
 
 function createTimeItem(offset, content) {
     var div = document.createElement('div');
-    div.setAttribute('style', 'top: 0px; left: ' + offset + 'px');
-    div.setAttribute('class', 'time_item');
-    div.innerHTML = content;
+        div.setAttribute('style', 'top: 0px; left: ' + offset + 'px');
+        div.setAttribute('class', 'time_item');
+        div.innerHTML = content;
     return div;
 }
 
 function createTimeRange(offset, length, styles) {
-    var div = document.createElement('div');
-    div.setAttribute('style', 'top: 0px; left: ' + offset + 'px; width:' + length + 'px;' );
-    div.setAttribute('class', 'time_range');
-    div.innerHTML = '1';
-    return div;
+    var container = document.createElement('div');
+        container.setAttribute('class', 'time_range_container');
+    var timeRange = document.createElement('div');
+        timeRange.setAttribute('style', 'left: ' + offset + 'px; width:' + length + 'px;' );
+        timeRange.setAttribute('class', 'time_range_new');
+    var helper = document.createElement('div');
+        helper.setAttribute('class','time_range_helper')
+
+        container.appendChild(timeRange);
+        container.appendChild(helper);
+
+    return container;
 }
+
